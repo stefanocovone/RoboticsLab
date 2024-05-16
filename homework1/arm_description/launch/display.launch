@@ -1,0 +1,16 @@
+<launch>
+<arg name="use_gui" value="true" />
+<!-- Load the URDF model as the robot_description ROS param -->
+
+<!-- This command was used up to point 1.c -->
+<!-- param name="robot_description" textfile="arm.urdf" /-->
+
+<!-- Define the xacro urdf file of the arm -->
+<param name="robot_description" command="$(find xacro)/xacro $(find arm_description)/urdf/arm.urdf.xacro" />
+<!-- Start the robot_state_publisher node -->
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+<!-- Start the node_state_publisher node -->
+<node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"  />
+<!-- Start the RViz node -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find arm_description)/config/arm.rviz" />
+</launch>
